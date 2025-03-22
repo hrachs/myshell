@@ -40,6 +40,7 @@ void unset_variable(char* key) {
 }
 
 void print_variables() {
+    
     for (int i = 0; i < var_count; i++) {
         printf("%s=%s\n", variables[i].key, variables[i].value);
     }
@@ -87,7 +88,21 @@ void myexit() {
         free(variables[i].key);
         free(variables[i].value);
     }
+
     remove("/home/history.txt");
     printf("Exiting shell...\n");
     exit(EXIT_SUCCESS);
+}
+
+void help() {
+    
+    printf("Available commands:\n");
+    printf("  set NAME=VALUE   - Set a shell variable\n");
+    printf("  unset NAME       - Unset a shell variable\n");
+    printf("  echo [TEXT]      - Print text with variable expansion\n");
+    printf("  pwd              - Print the current working directory\n");
+    printf("  cd [DIR]         - Change the current directory\n");
+    printf("  history [N]      - Show the last N commands (or all if N is omitted)\n");
+    printf("  help             - Show this help message\n");
+    printf("  exit             - Exit the shell\n");
 }

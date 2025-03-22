@@ -23,5 +23,7 @@ int call_history(const char *command);
 void token(char *command, char *args[MAX_ARGS]);
 int exec(char *args[MAX_ARGS]);
 void sigint_handler(int signal);
+void help(); 
+int builtins(char *args[]); 
 
 #endif

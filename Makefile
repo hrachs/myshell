@@ -1,13 +1,17 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
+TARGET = mysh
+OBJS = main.o builtins.o executor.o utils.o
 
-all: mysh
+all: $(TARGET)
 
-mysh: main.o builtins.o executor.o utils.o
-	$(CC) $(CFLAGS) -o mysh main.o builtins.o executor.o utils.o
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-%.o: %.c shell.h
+%.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f *.o mysh
+	rm -f $(OBJS) 
+
+

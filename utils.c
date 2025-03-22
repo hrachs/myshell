@@ -28,12 +28,9 @@ int call_history(const char *command) {
         perror("Error opening history file");
         return -1;
     }
-    dprintf(fd, "%s\n", command);
+    dprintf(fd, "%s\n", command); //printf ---> d in descriptor
     close(fd);
     return 0;
 }
 
-void sigint_handler(int signal) {
-    printf("\n");
-    myexit();
-}
+

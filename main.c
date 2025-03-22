@@ -5,6 +5,10 @@
 #include <unistd.h>
 #include <signal.h>
 
+void sigint_handler(int signal) {
+    printf("\n");
+    myexit();
+}
 int main() {
     signal(SIGINT, sigint_handler);
     char *command = NULL;
@@ -12,7 +16,7 @@ int main() {
 
     while (1) {
         printf("> ");
-        ssize_t read = getline(&command, &len, stdin);
+        ssize_t read = getline(&command, &len, stdin); // read line from stdion under this function works malloc or realloc
         if (read == -1 || command == NULL) {
             perror("getline error");
             free(command);
@@ -24,18 +28,12 @@ int main() {
         char *args[MAX_ARGS];
         token(command, args);
 
-        if (strcmp(args[0], "exit") == 0) {
-            free(command);
-            myexit();
-        } else if (strcmp(args[0], "history") == 0) {
-            myhistory();
-        } else if (strcmp(args[0], "echo") == 0) {
-            myecho(args);
-        } else if (strcmp(args[0], "cd") == 0) {
-            mycd(args[1]);
-        } else {
+        if(builtins(args) == 0){
+
+        }else{
             exec(args);
         }
     }
+    free(command);
     return 0;
 }
